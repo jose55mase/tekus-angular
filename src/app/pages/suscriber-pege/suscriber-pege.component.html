@@ -1,1 +1,29 @@
-<app-suscriber-list></app-suscriber-list>
+<div class="row">
+    <div class="col-md-5 bottom-50 top-10 "></div>
+    <div class="col-md-2 bottom-50 top-10 ">
+        <button 
+            mat-fab class="pull-right " matTooltip="Info about the action" aria-label="Button that shows a red tooltip"
+            color="primary" matTooltip="Crear nuevo suscriptor "
+            (click)="crud()"
+            *ngIf="showComponent == 'list'"
+            >
+            <mat-icon>add</mat-icon>
+        </button>
+        <button 
+            mat-fab class="pull-right " matTooltip="Info about the action" aria-label="Button that shows a red tooltip"
+            color="primary" matTooltip="Ver suscriptores "
+            (click)="crud()"
+            *ngIf="showComponent == 'create'"
+            >
+            <mat-icon>horizontal_split</mat-icon>
+        </button>
+    </div><div class="col-md-5 bottom-50 top-10 ">
+    </div>
+</div>
+<br>
+<div *ngIf="showComponent == 'list'">
+    <app-suscriber-list></app-suscriber-list>
+</div>
+<div *ngIf="showComponent == 'create'">
+    <app-suscriber-createupdate></app-suscriber-createupdate>
+</div>

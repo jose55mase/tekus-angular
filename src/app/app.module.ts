@@ -10,17 +10,19 @@ import { SuscriberCreateupdateComponent } from './modules/suscriber-module/suscr
 import { SuscriberModule } from './modules/suscriber-module/suscriber.module';
 import { SuscriberPegeComponent } from './pages/suscriber-pege/suscriber-pege.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './modules/login-module/login/login.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   declarations: [
     SuscriberPegeComponent,
-    AppComponent,SuscriberListComponent,SuscriberCreateupdateComponent,
+    AppComponent,SuscriberListComponent,SuscriberCreateupdateComponent, LoginComponent, LoginPageComponent,
   ],
   imports: [
-    BrowserModule,AppRoutingModule,BrowserAnimationsModule,
-    AngularMaterialModule,SuscriberModule,HttpClientModule,
+    BrowserModule,AppRoutingModule,BrowserAnimationsModule, FormsModule,
+    AngularMaterialModule,SuscriberModule,HttpClientModule,  ReactiveFormsModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

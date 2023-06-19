@@ -1,86 +1,70 @@
-
-
-<div class="main-content" >
-    <div class="container-fluid">
-        
-        <div class="row">  
-          <button                           
-            mat-fab                           
-            class="pull-right"
-            matTooltip="Info about the action"                          
-            aria-label="Button that shows a red tooltip"
-            color="primary"
-            matTooltip="Crear nuevo cliente"
-            >
-            <mat-icon>add</mat-icon>
-          </button>     
-            <div class="col-md-12">
-                <div class="card">                
-                    <!-- Buscador de registros -->
-                <!--div class="row">
-                      <div class="col-sm-1"></div>
-                        <div class="col-sm-7" class="form-group">
-                          <div class="d-flex flex-row bd-highlight mb-2">
-                            <div class="p-2 bd-highlight"><input type="text" (keyup)="applyFilter($event.target.value)" class="form-control text-danger"  placeholder=" Buscar en los resgistros"></div>
-                          <div class="p-2 bd-highlight"><mat-icon matSuffix>search</mat-icon></div>
-                          
-  
-                        </div>
-                      </div> 
-                    </div-->
-                    <!-- Columnas de registros -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table mat-table [dataSource]="data" class="mat-elevation-z8">
-                                <ng-container matColumnDef="Id">
-                                    <th mat-header-cell *matHeaderCellDef> No. </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
-                                </ng-container>
-                            
-                                <ng-container matColumnDef="Name">
-                                    <th mat-header-cell *matHeaderCellDef> Nombre. </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
-                                </ng-container>
-                            
-                                <ng-container matColumnDef="Email">
-                                    <th mat-header-cell *matHeaderCellDef> Email. </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
-                                </ng-container>
-                            
-                                <ng-container matColumnDef="CountryName">
-                                    <th mat-header-cell *matHeaderCellDef> Pais. </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.CountryName}} </td>
-                                </ng-container>
-                            
-                                <ng-container matColumnDef="PhoneNumber">
-                                    <th mat-header-cell *matHeaderCellDef> Numero Celular. </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.PhoneNumber}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="Action">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: medium"> Accion </th>
-                                    <td mat-cell *matCellDef="let row" style="font-size: small"><mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                                        <button mat-mini-fab color="primary" aria-label="" (click)="editData(row)">
-                                          <mat-icon>edit</mat-icon>
-                                        </button>
-                                        <button mat-mini-fab color="warn" (click)="delete(row)" aria-label="">
-                                          <mat-icon>delete</mat-icon>
-                                        </button>
-                                    </mat-button-toggle-group>
-                                  </ng-container>
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                            </table>
-                            <br>
-                            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
-                            </mat-paginator>
-                        </div>
-                    </div>
-                </div>
+<div class="main-content">
+  <div class="container-fluid">
+   
+    <div class="row">
+      <div class="col-md-12 ">
+        <div class="card top-10">
+          <!-- Buscador de registros -->
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-7" class="form-group">
+              <div class="d-flex flex-row bd-highlight mb-2">
+                <div class="p-2 bd-highlight"><input type="text" (keyup)="applyFilter($event.target.value)"
+                    class="form-control text-danger" placeholder=" Buscar en los resgistros"></div>
+                <div class="p-2 bd-highlight"><mat-icon matSuffix>search</mat-icon></div>
+              </div>
             </div>
+          </div>
+          <!-- Columnas de registros -->
+          <div class="card-body">
+            <div class="table-responsive">
+              <table mat-table [dataSource]="data" class="mat-elevation-z8">
+                <ng-container matColumnDef="Id">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Name">
+                  <th mat-header-cell *matHeaderCellDef> Nombre. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Email">
+                  <th mat-header-cell *matHeaderCellDef> Email. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="CountryName">
+                  <th mat-header-cell *matHeaderCellDef> Pais. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.CountryName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="PhoneNumber">
+                  <th mat-header-cell *matHeaderCellDef> Numero Celular. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.PhoneNumber}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: medium"> Accion </th>
+                  <td mat-cell *matCellDef="let row" style="font-size: small"><mat-button-toggle-group name="fontStyle"
+                      aria-label="Font Style">
+                      <button mat-mini-fab color="primary" aria-label="" (click)="editSuscriber(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-mini-fab color="warn" (click)="deleteSuscriber(row)" aria-label="">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-button-toggle-group>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <br>
+              <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+              </mat-paginator>
+            </div>
+          </div>
         </div>
-  
-         
-  
-        
+      </div>
     </div>
   </div>
+</div>

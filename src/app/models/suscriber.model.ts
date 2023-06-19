@@ -1,11 +1,11 @@
 export class SuscriberPostModel{
     Name: string;
     Email:string;
-    ContryCode: string;
+    CountryCode: string;
     PhoneNumber: string;
     JobTitle: string;
-    area: string;
-    topic: any[];
+    Area: string;
+    Topics: any[];
 }
 
 export class SuscriberGetModel{
@@ -33,4 +33,15 @@ export class SuscriberGetModel{
     Activity: string;
     ConnectionState: number;
     Id: number;
+}
+
+export class SuscriberPuttModel{
+    Id?: number;
+    Name: string;
+    Email:string;
+    CountryCode: string;
+    PhoneNumber: string;
+    JobTitle: string;
+    Area: string;
+    Topics: any[];
 }

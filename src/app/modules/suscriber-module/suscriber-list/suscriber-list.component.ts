@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResponseModel } from 'src/app/models/respose.model';
 import { SuscriberGetModel } from 'src/app/models/suscriber.model';
 import { SuscriberService } from 'src/app/services/suscriber.service';
-
+import { SuscriberCreateupdateComponent } from '../suscriber-createupdate/suscriber-createupdate.component';
+import Swal from 'sweetalert2';
+import { btnsApp, deleteItem } from 'src/app/commos/global-text';
 
 export interface PeriodicElement {
   name: string;
@@ -35,23 +38,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class SuscriberListComponent implements OnInit {
 
   //@ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: string[] = ['Id','Name','Email','CountryName','PhoneNumber','Action'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator; 
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   public data: any;//SuscriberGetModel;
   private token: string;
 
-  constructor( private suscriberService: SuscriberService ) { }
+  constructor( private suscriberService: SuscriberService,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getSuscriberList();
   }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-  
-  //TODO: remover o cambiar
-  displayedColumns: string[] = ['Id','Name','Email','CountryName','PhoneNumber','Action'];
   
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -60,32 +56,59 @@ export class SuscriberListComponent implements OnInit {
   }
 
   public async getSuscriberList()  {
-    await this.suscriberService.getToken(
-      {
-        "UserName": "patata",
-        "Password": "MrPotat0"
+    const token = JSON.parse(sessionStorage.getItem("objectTekus_token"));
+    this.suscriberService.getAllService(token).subscribe(
+      (response:ResponseModel) => {        
+        this.data = new MatTableDataSource(response.Data)
+        this.data.paginator = this.paginator = this.paginator
+        this.data.applyFilter = this.applyFilter;
+        this.paginator._intl.itemsPerPageLabel = 'Registros por pagina';
+        this.paginator._intl.firstPageLabel = 'Primera pagina';
+        this.paginator._intl.lastPageLabel = 'Ultima pagina';
+        this.paginator._intl.nextPageLabel = 'Pagina adelante';
+        this.paginator._intl.previousPageLabel = 'Pagina atras';
+      },
+      (error) => { 
+        console.log("Response: ", error)
+        Swal.fire( "502 " ,  "Valida con el administrador" ,  "error" )
       }
-    ).subscribe((response) => 
-      {
-        this.suscriberService.getAllService(response.Token).subscribe(
-          (response:ResponseModel) => {        
-            this.data = new MatTableDataSource(response.Data)
-            this.data.paginator = this.paginator = this.paginator
-            this.data.applyFilter = this.applyFilter;
-            this.paginator._intl.itemsPerPageLabel = 'Registros por pagina';
-            this.paginator._intl.firstPageLabel = 'Primera pagina';
-            this.paginator._intl.lastPageLabel = 'Ultima pagina';
-            this.paginator._intl.nextPageLabel = 'Pagina adelante';
-            this.paginator._intl.previousPageLabel = 'Pagina atras';
-          },
-          //(error) => { Swal.fire( "502 " ,  "Valida con el administrador" ,  "error" ) }
-        )
-        
-      }    
-    )
-
-   
+    )  
   }
+
+  public editSuscriber(data: any) {
+    sessionStorage.setItem("objectTekus_suscriber", JSON.stringify(data));
+    const dialogRef = this.dialog.open(SuscriberCreateupdateComponent, {
+      height: '450px',
+      width: '400px'
+    });
+
+  }
+
+  public deleteSuscriber(data: any) {
+    const token = JSON.parse(sessionStorage.getItem("objectTekus_token"));
+    Swal.fire({
+      title: `${deleteItem.delete}`,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `${btnsApp.ok}`,
+      denyButtonText: `${btnsApp.cancel}`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.suscriberService.delete(data,token).subscribe(
+          (response) => {   
+            Swal.fire(`${deleteItem.confir}`, '', 'success')     
+          },
+          (error) => { 
+            Swal.fire( "502 " ,  `${deleteItem.error}` ,  "error" )
+          
+          }
+        )
+      } else if (result.isDenied) {
+        Swal.fire(`${deleteItem.cancel}`, '', 'info')
+      }
+    })
+  }
+
 
 
 }

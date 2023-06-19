@@ -1,1 +1,59 @@
-<p>suscriber-createupdate works!</p>
+<div class="">
+    <div class="col-lg-6 offset-lg-3">
+        <!-- Columnas de registros -->
+
+        <form [formGroup]="checkoutForm" class="row justify-content-center">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Nombre" autocomplete="off" formControlName="name" />
+                <mat-icon matSuffix>description</mat-icon>
+            </mat-form-field>
+            <mat-error *ngIf=" checkoutForm.get('name').value == '' && checkoutForm.get('name').touched ">El campo
+                nombre es obligatorio</mat-error>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Nombre" autocomplete="off" formControlName="email" />
+                <mat-icon matSuffix>description</mat-icon>
+            </mat-form-field>
+            <mat-error *ngIf=" checkoutForm.get('email').value == '' && checkoutForm.get('email').touched ">El campo
+                nombre es obligatorio</mat-error>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Numero de telefono</mat-label>
+                <input matInput placeholder="Numero de telefono" autocomplete="off" formControlName="phoneNumber" />
+                <mat-icon matSuffix>description</mat-icon>
+            </mat-form-field>
+            <mat-error
+                *ngIf=" checkoutForm.get('phoneNumber').value == '' && checkoutForm.get('phoneNumber').touched ">El
+                campo nombre es obligatorio</mat-error>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Titulo profecional</mat-label>
+                <input matInput placeholder="Titulo profecional" autocomplete="off" formControlName="jobTitle" />
+                <mat-icon matSuffix>description</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Area</mat-label>
+                <input matInput placeholder="Area" autocomplete="off" formControlName="area" />
+                <mat-icon matSuffix>description</mat-icon>
+            </mat-form-field>
+
+        </form>
+
+        <div *ngIf="btnSaveDate" class="">
+            <button class="position_save btn-block" color="primary" (click)="savedata()"
+                [disabled]="!checkoutForm.valid" mat-raised-button>
+                Guargar
+            </button>
+        </div>
+
+        <div *ngIf="btnUpDate" class="">
+            <button class="position_save btn-block" color="primary" (click)="update()" [disabled]="!checkoutForm.valid"
+                mat-raised-button>
+                Editar
+            </button>
+        </div>
+    </div>
+</div>

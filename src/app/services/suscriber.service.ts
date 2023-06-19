@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { SuscriberGetModel } from '../models/suscriber.model';
+import { SuscriberGetModel, SuscriberPostModel } from '../models/suscriber.model';
 import { ResponseModel } from '../models/respose.model';
 
 
@@ -21,27 +21,33 @@ export class SuscriberService {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
     });
-    // TODO: Configurar token.
-    //console.log("Tocken: ", token);
     return this.http.get<ResponseModel>(`${this.URI}/subscribers/`, { headers: headers })
   }
 
-  getToken(data): Observable<any> {   
-    return this.http.post<any>(`${this.URI}/account/login`,data)
+  save(data, token): Observable<SuscriberPostModel> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<SuscriberPostModel>(`${this.URI}/subscribers/`,data, { headers: headers })
   }
 
-
-/*
-  save(data): Observable<ModelSubjets> {   
-    return this.http.post<ModelSubjets>(`${this.URI}/client/save`,data)
+  update(data,token): Observable<SuscriberPostModel> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });  
+    // TODO: Configurar token.
+    //console.log("Tocken: ", token);
+    return this.http.put<SuscriberPostModel>(`${this.URI}/subscribers/${data.Id}`,data, { headers: headers })
   }
 
-  update(data): Observable<ModelSubjets> {   
-    return this.http.post<ModelSubjets>(`${this.URI}/client/save`,data)
+  delete(data,token): Observable<number> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });  
+    return this.http.delete<number>(`${this.URI}/subscribers/${data.Id}`, { headers: headers })
   }
 
-  delete(data): Observable<ModelSubjets> {   
-    return this.http.post<ModelSubjets>(`${this.URI}/client/delete`,data)
-  }
-  */
 }
